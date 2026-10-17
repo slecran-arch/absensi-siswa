@@ -1,0 +1,76 @@
+
+<!DOCTYPE html>
+<html lang="id">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>Absensi Siswa Online</title>
+  <style>
+    body {
+      font-family: Arial, sans-serif;
+      background: #f0f4ff;
+      margin: 0;
+      padding: 20px;
+      color: #172554;
+    }
+    .card {
+      max-width: 420px;
+      margin: 30px auto;
+      padding: 24px;
+      background: white;
+      border-radius: 18px;
+      box-shadow: 0 4px 20px #0001;
+    }
+    h1 { text-align: center; font-size: 25px; }
+    p { text-align: center; color: #64748b; }
+    label { display: block; margin-top: 18px; }
+    input, select, button {
+      box-sizing: border-box;
+      width: 100%;
+      padding: 13px;
+      margin-top: 8px;
+      border-radius: 9px;
+      font-size: 16px;
+    }
+    input, select { border: 1px solid #cbd5e1; }
+    button {
+      border: 0;
+      background: #2563eb;
+      color: white;
+      font-weight: bold;
+      margin-top: 22px;
+    }
+    #hasil { text-align: center; margin-top: 16px; }
+  </style>
+</head>
+<body>
+  <main class="card">
+    <h1>📚 Absensi Siswa</h1>
+    <p>Form absensi siswa online</p>
+    <form id="formAbsensi">
+      <label for="nama">Nama siswa</label>
+      <input id="nama" required placeholder="Masukkan nama lengkap">
+
+      <label for="kelas">Kelas</label>
+      <input id="kelas" required placeholder="Contoh: 8A">
+
+      <label for="status">Keterangan</label>
+      <select id="status">
+        <option>Hadir</option>
+        <option>Izin</option>
+        <option>Sakit</option>
+      </select>
+
+      <button type="submit">Kirim Absensi</button>
+    </form>
+    <div id="hasil"></div>
+  </main>
+  <script>
+    document.getElementById("formAbsensi").addEventListener("submit", function(e) {
+      e.preventDefault();
+      document.getElementById("hasil").textContent =
+        "Form berhasil dicoba! Data belum tersimpan ke database.";
+    });
+  </script>
+</body>
+</html>
