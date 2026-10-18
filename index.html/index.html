@@ -3,74 +3,460 @@
 <html lang="id">
 <head>
   <meta charset="UTF-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1">
-  <title>Absensi Siswa Online</title>
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta name="theme-color" content="#5b35d5">
+  <title>Absensi Siswa - HadirYuk</title>
+
   <style>
+    * { box-sizing: border-box; }
+
     body {
-      font-family: Arial, sans-serif;
-      background: #f0f4ff;
       margin: 0;
-      padding: 20px;
-      color: #172554;
+      min-height: 100vh;
+      padding: 22px 14px;
+      font-family: Arial, sans-serif;
+      color: #24183e;
+      background:
+        radial-gradient(circle at top left, #ffdaef, transparent 40%),
+        radial-gradient(circle at top right, #c9fbf6, transparent 35%),
+        #f7f4ff;
     }
-    .card {
-      max-width: 420px;
-      margin: 30px auto;
-      padding: 24px;
-      background: white;
-      border-radius: 18px;
-      box-shadow: 0 4px 20px #0001;
+
+    .container {
+      max-width: 650px;
+      margin: auto;
     }
-    h1 { text-align: center; font-size: 25px; }
-    p { text-align: center; color: #64748b; }
-    label { display: block; margin-top: 18px; }
-    input, select, button {
-      box-sizing: border-box;
-      width: 100%;
-      padding: 13px;
-      margin-top: 8px;
-      border-radius: 9px;
-      font-size: 16px;
+
+    .brand {
+      display: flex;
+      align-items: center;
+      gap: 12px;
+      margin-bottom: 22px;
+      font-weight: 900;
+      font-size: 21px;
     }
-    input, select { border: 1px solid #cbd5e1; }
-    button {
-      border: 0;
-      background: #2563eb;
+
+    .logo {
+      display: grid;
+      place-items: center;
+      width: 46px;
+      height: 46px;
+      border-radius: 15px;
       color: white;
-      font-weight: bold;
-      margin-top: 22px;
+      font-size: 25px;
+      background: linear-gradient(135deg, #5b35d5, #ff4fa3);
     }
-    #hasil { text-align: center; margin-top: 16px; }
+
+    .hero {
+      padding: 30px 24px;
+      color: white;
+      border-radius: 25px;
+      background: linear-gradient(120deg, #4321b7, #7548e8, #f04d9d);
+      box-shadow: 0 15px 35px #5634c433;
+    }
+
+    .hero small {
+      font-weight: bold;
+      letter-spacing: 2px;
+    }
+
+    h1 {
+      margin: 12px 0;
+      font-size: clamp(30px, 7vw, 43px);
+      line-height: 1.1;
+    }
+
+    .hero p {
+      line-height: 1.6;
+      color: #f4efff;
+      margin-bottom: 0;
+    }
+
+    .stats {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 12px;
+      margin: 17px 0;
+    }
+
+    .stat, .panel {
+      background: white;
+      border: 1px solid #e9e4f6;
+      border-radius: 20px;
+      padding: 18px;
+      box-shadow: 0 8px 25px #35205b0c;
+    }
+
+    .stat span {
+      display: block;
+      font-size: 12px;
+      color: #766e8d;
+      margin-bottom: 8px;
+      font-weight: bold;
+    }
+
+    .stat strong {
+      font-size: 15px;
+      overflow-wrap: anywhere;
+    }
+
+    .panel {
+      padding: 24px;
+    }
+
+    h2 {
+      margin: 0 0 8px;
+      font-size: 23px;
+    }
+
+    .description {
+      color: #766e8d;
+      font-size: 14px;
+      line-height: 1.6;
+      margin-bottom: 22px;
+    }
+
+    label.title {
+      display: block;
+      margin: 18px 0 9px;
+      font-weight: bold;
+      font-size: 14px;
+    }
+
+    input[type="text"] {
+      width: 100%;
+      padding: 15px;
+      border: 1.5px solid #e5def5;
+      border-radius: 13px;
+      font-size: 16px;
+      outline: none;
+      background: #fcfbff;
+    }
+
+    input[type="text"]:focus {
+      border-color: #5b35d5;
+      box-shadow: 0 0 0 3px #5b35d522;
+    }
+
+    .choices {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 10px;
+    }
+
+    .choice {
+      display: flex;
+      align-items: center;
+      gap: 9px;
+      padding: 14px 11px;
+      border: 1.5px solid #e5def5;
+      border-radius: 14px;
+      font-weight: bold;
+      cursor: pointer;
+      font-size: 14px;
+    }
+
+    .choice:has(input:checked) {
+      border-color: #7048e8;
+      color: #542bbf;
+      background: #f3efff;
+    }
+
+    .choice input {
+      width: 18px;
+      height: 18px;
+      accent-color: #7048e8;
+    }
+
+    .hint {
+      color: #766e8d;
+      font-size: 12px;
+      line-height: 1.5;
+    }
+
+    button {
+      width: 100%;
+      padding: 16px;
+      margin-top: 22px;
+      border: 0;
+      border-radius: 14px;
+      color: white;
+      font-size: 17px;
+      font-weight: 800;
+      cursor: pointer;
+      background: linear-gradient(100deg, #5b35d5, #9141dc, #f04d9d);
+      box-shadow: 0 9px 22px #6940d533;
+    }
+
+    button:disabled {
+      opacity: .65;
+      cursor: wait;
+    }
+
+    .notice {
+      display: none;
+      padding: 14px;
+      margin-top: 15px;
+      border-radius: 13px;
+      font-size: 14px;
+      line-height: 1.6;
+      overflow-wrap: anywhere;
+    }
+
+    .notice.show { display: block; }
+    .notice.good { background: #e5fbf1; color: #116b4d; }
+    .notice.bad { background: #fff0f2; color: #a1263e; }
+
+    footer {
+      text-align: center;
+      color: #766e8d;
+      font-size: 12px;
+      line-height: 1.7;
+      padding: 24px 8px;
+    }
+
+    @media (max-width: 380px) {
+      .choices { grid-template-columns: 1fr; }
+      .hero { padding: 25px 19px; }
+      .panel { padding: 18px; }
+    }
   </style>
 </head>
+
 <body>
-  <main class="card">
-    <h1>📚 Absensi Siswa</h1>
-    <p>Form absensi siswa online</p>
-    <form id="formAbsensi">
-      <label for="nama">Nama siswa</label>
-      <input id="nama" required placeholder="Masukkan nama lengkap">
+  <main class="container">
 
-      <label for="kelas">Kelas</label>
-      <input id="kelas" required placeholder="Contoh: 8A">
+    <header class="brand">
+      <div class="logo">✓</div>
+      <span>HadirYuk<span style="color:#f04d9d">.</span></span>
+    </header>
 
-      <label for="status">Keterangan</label>
-      <select id="status">
-        <option>Hadir</option>
-        <option>Izin</option>
-        <option>Sakit</option>
-      </select>
+    <section class="hero">
+      <small>HALO, SISWA HEBAT! ✨</small>
+      <h1>Absen dulu,<br>baru gas belajar.</h1>
+      <p>
+        Isi nama lengkap dan pilih status kehadiranmu.
+        Pastikan data sudah benar sebelum dikirim.
+      </p>
+    </section>
 
-      <button type="submit">Kirim Absensi</button>
-    </form>
-    <div id="hasil"></div>
+    <section class="stats">
+      <div class="stat">
+        <span>📅 TANGGAL HARI INI</span>
+        <strong id="today">Memuat...</strong>
+      </div>
+
+      <div class="stat">
+        <span>🕒 JAM SEKARANG</span>
+        <strong id="clock">Memuat...</strong>
+      </div>
+    </section>
+
+    <section class="panel">
+      <h2>Form Absensi 📝</h2>
+      <p class="description">
+        Isi absensi di bawah ini. Waktu pengiriman akan
+        dicatat otomatis menggunakan zona waktu WIB.
+      </p>
+
+      <form id="attendanceForm">
+        <label class="title" for="studentName">
+          Nama lengkap
+        </label>
+
+        <input
+          id="studentName"
+          name="nama"
+          type="text"
+          placeholder="Masukkan nama lengkap"
+          maxlength="80"
+          autocomplete="name"
+          required
+        >
+
+        <label class="title">Status kehadiran</label>
+
+        <div class="choices">
+          <label class="choice">
+            <input type="radio" name="status"
+                   value="Hadir" required checked>
+            ✅ Hadir
+          </label>
+
+          <label class="choice">
+            <input type="radio" name="status" value="Izin">
+            📨 Izin
+          </label>
+
+          <label class="choice">
+            <input type="radio" name="status" value="Sakit">
+            🤒 Sakit
+          </label>
+
+          <label class="choice">
+            <input type="radio" name="status" value="Alpa">
+            ❌ Alpa
+          </label>
+        </div>
+
+        <p class="hint">
+          Pilih satu status sesuai keadaanmu.
+        </p>
+
+        <button id="submitButton" type="submit">
+          Kirim Absensi →
+        </button>
+
+        <div id="notice" class="notice"
+             role="status" aria-live="polite"></div>
+      </form>
+    </section>
+
+    <footer>
+      HadirYuk © <span id="year"></span><br>
+      Dibuat untuk membantu kelas lebih tertib 💜<br>
+      Waktu menggunakan zona WIB (UTC+7).
+    </footer>
+
   </main>
+
+  <!-- EmailJS -->
+  <script src="https://cdn.jsdelivr.net/npm/@emailjs/browser@4/dist/email.min.js"></script>
+
   <script>
-    document.getElementById("formAbsensi").addEventListener("submit", function(e) {
-      e.preventDefault();
-      document.getElementById("hasil").textContent =
-        "Form berhasil dicoba! Data belum tersimpan ke database.";
+    // KONFIGURASI EMAILJS
+    const PUBLIC_KEY = "A607Op6M2VN9lRsLi";
+    const SERVICE_ID = "service_82qgoat";
+    const TEMPLATE_ID = "template_u6zcwpy";
+
+    emailjs.init({
+      publicKey: PUBLIC_KEY
     });
+
+    const $ = id => document.getElementById(id);
+
+    const dateOptions = {
+      timeZone: "Asia/Jakarta",
+      weekday: "long",
+      day: "numeric",
+      month: "long",
+      year: "numeric"
+    };
+
+    const timeOptions = {
+      timeZone: "Asia/Jakarta",
+      hour: "2-digit",
+      minute: "2-digit",
+      second: "2-digit",
+      hour12: false
+    };
+
+    const dateFormatter =
+      new Intl.DateTimeFormat("id-ID", dateOptions);
+
+    const timeFormatter =
+      new Intl.DateTimeFormat("id-ID", timeOptions);
+
+    const stampFormatter = new Intl.DateTimeFormat("id-ID", {
+      timeZone: "Asia/Jakarta",
+      day: "2-digit",
+      month: "short",
+      year: "numeric",
+      hour: "2-digit",
+      minute: "2-digit",
+      second: "2-digit",
+      hour12: false
+    });
+
+    function updateClock() {
+      const now = new Date();
+
+      $("today").textContent = dateFormatter.format(now);
+      $("clock").textContent =
+        timeFormatter.format(now) + " WIB";
+
+      $("year").textContent =
+        new Intl.DateTimeFormat("id-ID", {
+          timeZone: "Asia/Jakarta",
+          year: "numeric"
+        }).format(now);
+    }
+
+    updateClock();
+    setInterval(updateClock, 1000);
+
+    $("attendanceForm").addEventListener(
+      "submit",
+      async function(event) {
+        event.preventDefault();
+
+        const name = $("studentName").value
+          .trim().replace(/\s+/g, " ");
+
+        const selectedStatus =
+          document.querySelector(
+            'input[name="status"]:checked'
+          );
+
+        const notice = $("notice");
+        const button = $("submitButton");
+
+        if (!name || !selectedStatus) {
+          notice.className = "notice show bad";
+          notice.textContent =
+            "Isi nama dan pilih status kehadiran.";
+          return;
+        }
+
+        const now = new Date();
+        const status = selectedStatus.value;
+        const tanggal = dateFormatter.format(now);
+        const waktu = stampFormatter.format(now);
+
+        button.disabled = true;
+        button.textContent = "Mengirim...";
+        notice.className = "notice show";
+        notice.textContent =
+          "Sedang mengirim absensi ke email...";
+
+        try {
+          await emailjs.send(
+            SERVICE_ID,
+            TEMPLATE_ID,
+            {
+              nama: name,
+              status: status,
+              tanggal: tanggal,
+              waktu: waktu,
+              title: "Absensi Siswa Baru - " + tanggal,
+              name: name
+            }
+          );
+
+          notice.className = "notice show good";
+          notice.textContent =
+            "✅ Absensi berhasil dikirim ke email! " +
+            "Nama: " + name +
+            " | Status: " + status +
+            " | " + waktu + " WIB.";
+
+          $("studentName").value = "";
+
+        } catch (error) {
+          console.error("EmailJS error:", error);
+
+          notice.className = "notice show bad";
+          notice.textContent =
+            "❌ Email belum berhasil dikirim. " +
+            "Periksa koneksi internet, Template ID, " +
+            "Service ID, dan variabel template EmailJS.";
+        } finally {
+          button.disabled = false;
+          button.textContent = "Kirim Absensi →";
+        }
+      }
+    );
   </script>
 </body>
-</html>
+          </html>
+  
